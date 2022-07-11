@@ -45,6 +45,8 @@ pairsD3 <- function(x, group = NULL, subset = NULL, labels = NULL, cex = 3,
                     tooltip = NULL, leftmar = 35, topmar = 2,
                     diag = FALSE) {
   height=width
+  #First, let's look at the possibilities of including crosstalk capabilities see [here](https://rstudio.github.io/crosstalk/authoring.html)
+
   # ensure the data is a numeric matrix but also an array
   data = data.frame(data.matrix(x))
   n = dim(data)[1]
