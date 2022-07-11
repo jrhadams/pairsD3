@@ -13,7 +13,8 @@ Date: 2022-06-05
 URL: https://github.com/garthtarr/pairsD3/
 Imports:
     htmlwidgets (>= 0.3.2),
-    shiny
+    shiny,
+    crosstalk
 Suggests:
     knitr
 RoxygenNote: 7.2.0

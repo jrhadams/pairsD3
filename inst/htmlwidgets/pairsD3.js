@@ -8,6 +8,7 @@ HTMLWidgets.widget({
   renderValue: function(el, xin, instance) {
     // save params for reference from resize method
     instance.xin = xin;
+    var sel_handle = new crosstalk.SelectionHandle();
     // draw the graphic
     this.drawGraphic(
       el,
@@ -207,7 +208,7 @@ HTMLWidgets.widget({
             tooltip.transition()
               .duration(500)
               .style("opacity", 0);
-          });
+          }).key(xin.settings.crosstalk_key);
       } else {
         if (p.x !== p.y){ // prevents a main diagonal being plotted
         cell.selectAll("circle")
@@ -232,9 +233,11 @@ HTMLWidgets.widget({
             tooltip.transition()
               .duration(500)
               .style("opacity", 0);
-          });
+          }).key(xin.settings.crosstalk_key);
       }
       }
+      // return per group
+      sel_handle.setGroup(x.settings.crosstalk_group);
     }
 
 

@@ -45,10 +45,19 @@ pairsD3 <- function(x, group = NULL, subset = NULL, labels = NULL, cex = 3,
                     tooltip = NULL, leftmar = 35, topmar = 2,
                     diag = FALSE) {
   height=width
-  #First, let's look at the possibilities of including crosstalk capabilities see [here](https://rstudio.github.io/crosstalk/authoring.html)
-
+  ## Attempting crosstalk recommendation ##
+  if (is.SharedData(x)) {
+    # Using Crosstalk
+    key <- x$key()
+    group <- x$groupName()
+    data <- x$origData()
+  } else {
+    # Not using Crosstalk
+    key <- NULL
+    group <- NULL
+    data <- data.frame(data.matrix(x))
+  }
   # ensure the data is a numeric matrix but also an array
-  data = data.frame(data.matrix(x))
   n = dim(data)[1]
   p = dim(data)[2]
   if(!big & dim(data)[2]>=10){
@@ -98,7 +107,9 @@ pairsD3 <- function(x, group = NULL, subset = NULL, labels = NULL, cex = 3,
     col = col,
     cex = cex,
     opacity = opacity,
-    diag = diag
+    diag = diag,
+    crosstalk_key = key,
+    crosstalk_group = group
   )
   # pass the data and settings using 'xin'
   xin <- list(
@@ -119,7 +130,8 @@ pairsD3 <- function(x, group = NULL, subset = NULL, labels = NULL, cex = 3,
     width = width,
     height = height,
     sizingPolicy = htmlwidgets::sizingPolicy(padding = 0, browser.fill = TRUE),
-    package = 'pairsD3'
+    package = 'pairsD3',
+    dependencies = crosstalk::crosstalkLibs()
   )
 }
 
